@@ -1,0 +1,33 @@
+/*################# CARD ####################*/
+.card {
+    width: 420px;
+    height: 320px;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--primary-color);
+    background-color: var(--primary-color);
+    transition: all ease-in 0.5s;
+    cursor: pointer;
+    color: white;
+}
+
+.card:hover {
+    box-shadow: 3px 3px 10px 5px var(--primary-color);
+}
+
+.img-card {
+    height: 90%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.card-title {
+    flex: 1;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.card-text {
+    flex: 0.75;
+    padding: 10px;
+}
