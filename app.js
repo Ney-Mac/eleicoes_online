@@ -7,10 +7,20 @@ const loginController = require('./src/controllers/loginController');
 const registerController = require('./src/controllers/registerController');
 
 app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
 
+//Rotas home
 app.get('/', homeController.index);
-app.get('/login', loginController.login);
-app.get('/register', registerController.register);
+
+//Rotas dashboard
+
+//Rotas login
+app.get('/login', loginController.index);
+app.post('/login', loginController.login);
+
+//Rotas register
+app.get('/register', registerController.index);
+app.post('/register', registerController.register);
 
 app.listen(port, () => {
     console.log(`gerenciador de eleicoes: http://localhost:${port}`);

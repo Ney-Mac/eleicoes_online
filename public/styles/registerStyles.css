@@ -1,0 +1,102 @@
+:root {
+    --primary-color: #00C4FF;
+    --secondary-color: #30A2FF;
+    --error-color: #FF1E1E;
+    --dark-color: #54595F;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-container {
+    display: flex;
+    background-color: #FFFFFF;
+    width: 512px;
+    min-height: 70%;
+    height: fit-content;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    box-shadow: 2px 2px 20px 2px black;
+    border-radius: 20px;
+}
+
+.title {
+    color: var(--primary-color);
+}
+
+.had-account p a {
+    color: var(--primary-color);
+}
+
+.had-account p a:hover {
+    color: var(--secondary-color);
+}
+
+/*################ INPUT #############*/
+.input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    height: fit-content;
+}
+
+.input-container label {
+    height: fit-content;
+    font-weight: bold;
+    width: 100%;
+    text-align: start;
+    font-size: 1.5rem;
+    padding: 3px 0;
+}
+
+.input {
+    height: fit-content;
+    width: 100%;
+    padding: 5px 2px;
+    border-radius: 0;
+    border: 2px solid #000000;
+    transition: all ease 0.4s;
+    height: 45px;
+}
+
+.input:focus {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    outline: none;
+}
+
+.input:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.error-text {
+    color: var(--error-color);
+    width: 100%;
+    text-align: start;
+}
+
+.error-box {
+    width: 100%;
+    height: fit-content;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #fb9191;
+}

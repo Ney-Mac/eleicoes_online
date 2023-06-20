@@ -1,16 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     
+
     <title>Gerenciador de Eleições - Registar</title>
     <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/styles/registerStyles.css">
+    <link rel="stylesheet" href="/styles/buttonStyles.css">
 </head>
+
 <body>
-    
-    
+
+    <form method="post" action="/register" class="register-container" onsubmit="onSendPressed(event)">
+
+        <h1 class="title">Register</h1>
+
+        <div class="input-container">
+            <label for="name">Nome</label>
+            <input 
+                onfocus="setLabelColorToPrimary(event)" 
+                onblur="setLabelColorToOriginal(event)" 
+                onchange="(event) => { 
+                    changeInputValue(emailInput, event) 
+                }" 
+                placeholder="Digite seu nome" 
+                type="text" 
+                name="name" 
+                class="input" 
+                value="Manuel Armando" 
+            />
+        </div>
+
+        <div class="input-container">
+            <label for="email">Email</label>
+            <input 
+                onfocus="setLabelColorToPrimary(event)" 
+                onblur="setLabelColorToOriginal(event)" 
+                onchange="(event) => { 
+                    changeInputValue(emailInput, event) 
+                }" 
+                placeholder="Digite seu email" 
+                type="email" 
+                name="email" 
+                class="input" 
+                value="email@gmail.com" 
+            />
+        </div>
+
+        <div class="input-container">
+            <label for="Password">Senha</label>
+            <input 
+                onfocus="setLabelColorToPrimary(event)" 
+                onblur="setLabelColorToOriginal(event)" 
+                onchange="(event) => { 
+                    changeInputValue(passwordInput, event) 
+                }" 
+                placeholder="Digite sua senha" 
+                type="Password" 
+                name="password" 
+                class="input" 
+                value="123456" 
+            />
+        </div>
+
+        <div class="input-container">
+            <label for="confirmPw">Confirmar Senha</label>
+            <input 
+                onfocus="setLabelColorToPrimary(event)" 
+                onblur="setLabelColorToOriginal(event)" 
+                onchange="(event) => { 
+                    changeInputValue(confirmPasswordInput, event) 
+                }" 
+                placeholder="Digite novamente sua senha" 
+                type="Password" 
+                name="confirmPw" 
+                class="input" 
+                value="123456"
+            />
+        </div>
+
+        <button type="submit" class="button contained" style="width: 100%;">
+            Criar Conta
+        </button>
+
+        <div class="had-account">
+            <p>Já tem uma conta? <a href="/login">Entrar</a> </p>
+        </div>
+
+    </form>
+
+    <script>
+        const nameInput = document.querySelector('input[name="name"]');
+        const emailInput = document.querySelector('input[name="email"]');
+        const passwordInput = document.querySelector('input[name="password"]');
+        const confirmPasswordInput = document.querySelector('input[name="confirmPw"]');
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const error = urlParams.get('error');
+
+        if (error) {
+            showErrorReturn();
+        }
+
+        function showErrorReturn() {
+            const errorMessage = `<div class="error-box"><p class="error-text">${error}</p></div>`;
+
+            const h1 = document.querySelector('.title');
+            h1.insertAdjacentHTML('afterend', errorMessage);
+        }
+
+        function onSendPressed(event) {
+            event.preventDefault();
+            clearErrorText();
+
+            const nameError = (!!nameInput.value)? '' : 'Este campo não pode estar vazio';
+            const emailError = validateEmail();
+            const passwordError = validatePassword();
+            const confirmPwError = validateConfirmPw();
+
+            if (nameError || emailError || passwordError || confirmPwError) {
+                const errorTextName= `<p class="error-text">${nameError}</p>`;
+                const errorTextEmail = `<p class="error-text">${emailError}</p>`;
+                const errorTextPassword = `<p class="error-text">${passwordError}</p>`;
+                const errorTextConfirmPw = `<p class="error-text">${confirmPwError}</p>`;
+
+                nameInput.insertAdjacentHTML('afterend', errorTextName);
+                emailInput.insertAdjacentHTML('afterend', errorTextEmail);
+                passwordInput.insertAdjacentHTML('afterend', errorTextPassword);
+                confirmPasswordInput.insertAdjacentHTML('afterend', errorTextConfirmPw);
+
+                return;
+            }
+
+            const form = document.querySelector('.register-container');
+            confirmPasswordInput.disabled = true; //Inpede que o campo de confirmação de senha seje enviado ao fazer submit do form 
+            form.submit();
+        }
+
+        function validateEmail() {
+            if (!emailInput.value) return 'Este campo não pode estar vazio';
+            return '';
+        }
+
+        function validatePassword() {
+            if (!passwordInput.value) return 'Este campo não pode estar vazio';
+            if (passwordInput.value.length < 6) return 'Sua senha deve conter ao menos 6 digitos'
+            return '';
+        }
+
+        function validateConfirmPw() {
+            if (!confirmPasswordInput.value) return 'Este campo não pode estar vazio';
+            if (confirmPasswordInput.value !== passwordInput.value) return 'Senha não compatível'
+            return '';
+        }
+
+        const changeInputValue = (input, event) => {
+            clearErrorText();
+            input.value = event.target.value;
+        }
+
+        const clearErrorText = () => {
+            let errorText = document.getElementsByClassName('error-text');
+
+            Object.keys(errorText)?.map(() => {
+                Object.values(errorText).pop().remove();
+            });
+        }
+
+        function setLabelColorToPrimary(event) {
+            const label = event.explicitOriginalTarget.previousElementSibling;
+            label.style.color = '#00C4FF';
+        }
+
+        function setLabelColorToOriginal(event) {
+            const label = event.target.previousElementSibling;
+            label.style.color = 'inherit';
+        }
+
+    </script>
 
 </body>
+
 </html>
