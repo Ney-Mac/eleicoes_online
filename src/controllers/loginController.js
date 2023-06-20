@@ -12,6 +12,8 @@ const login = async (req, res) => {
         res.redirect(`/login?error=${loginStatus.message}`);
         return;
     }
+
+    res.redirect('/dashboard');
 }
 
 module.exports = {

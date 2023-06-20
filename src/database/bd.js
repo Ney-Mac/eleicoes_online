@@ -5,7 +5,6 @@ const filePath = path.join(__dirname, './bd.json');
 const BD = fs.readFileSync(filePath, 'utf-8');
 const bd = JSON.parse(BD);
 
-
 const saveUser = (userData) => {
     const userExist = getUserBy(userData.email);
 

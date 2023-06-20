@@ -1,7 +1,15 @@
-const login = async ({ email, password }) => {
+const bd = require('../database/bd');
+
+const login = ({ email, password }) => {
     try {
-        //throw new Error('Teste de falha');
-        
+        const res = bd.getUserBy(email);
+
+        console.log(res);
+
+        if(!res || (res.email !== email || res.password !== password)) {
+            throw new Error('Dados incorrectos!');
+        }
+
         return {
             error: false,
         }

@@ -5,6 +5,7 @@ const port = 3000;
 const homeController = require('./src/controllers/homeController');
 const loginController = require('./src/controllers/loginController');
 const registerController = require('./src/controllers/registerController');
+const dashboardController = require('./src/controllers/dashboardController');
 
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
@@ -13,6 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', homeController.index);
 
 //Rotas dashboard
+app.get('/dashboard', dashboardController.index);
 
 //Rotas login
 app.get('/login', loginController.index);
